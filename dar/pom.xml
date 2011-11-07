@@ -2,10 +2,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>com.xebialabs.deployit.demos</groupId>
-    <artifactId>deployit-petclinic-parent</artifactId>
-    <version>1.0</version>
+	<parent>
+		<groupId>com.xebialabs.deployit.demos</groupId>
+		<artifactId>deployit-petclinic-parent</artifactId>
+		<version>1.0</version>
 	</parent>
 	<artifactId>deployit-petclinic-tomcat</artifactId>
 	<packaging>dar</packaging>
@@ -27,15 +27,6 @@
 							<goal>deploy</goal>
 						</goals>
 					</execution>
-					<!--
-					<execution>
-						<id>clean-id</id>
-						<phase>post-integration-test</phase>
-						<goals>
-							<goal>clean</goal>
-						</goals>
-					</execution>
-					-->
 				</executions>
 
 				<configuration>
@@ -48,15 +39,28 @@
 						<deployable>
 							<name>petclinic</name>
 							<type>jee.War</type>
-              <groupId>com.xebialabs.deployit.demos</groupId>
+							<groupId>com.xebialabs.deployit.demos</groupId>
 							<artifactId>PetClinic</artifactId>
 						</deployable>
 						<deployable>
 							<name>petclinic-backend</name>
 							<type>jee.War</type>
-              <groupId>com.xebialabs.deployit.demos</groupId>
+							<groupId>com.xebialabs.deployit.demos</groupId>
 							<artifactId>PetClinic-Backend</artifactId>
 						</deployable>
+
+
+						<deployable>
+							<name>petclinicDS</name>
+							<type>tomcat.DataSourceSpec</type>
+							<jndiName>jndi/toto</jndiName>
+							<driverClassName>com.mysql.jdbc.Driver</driverClassName>
+							<url>jdbc:mysql://localhost/petclinic</url>
+							<username>{{DATABASE_USERNAME}}</username>
+							<password>{{DATABASE_PASSWORD}}</password>
+						</deployable>
+
+						<!--
 						<deployable>
 							<type>file.Archive</type>
 							<groupId>mysql</groupId>
@@ -67,20 +71,10 @@
 							<type>file.Folder</type>
 							<location>config</location>
 						</deployable>
-						<deployable>
-							<name>petclinicDS</name>
-							<type>wls.DataSourceSpec</type>
-							<jndiNames>jndi/toto</jndiNames>
-							<driverName>com.mysql.jdbc.Driver</driverName>
-							<url>jdbc:mysql://localhost/petclinic</url>
-							<username>{{DB_USERNAME}}</username>
-							<password>{{DB_PASSWORD}}</password>
-							<JDBCConnectionPoolParams_InitialCapacity>0</JDBCConnectionPoolParams_InitialCapacity>
-						        <JDBCConnectionPoolParams_MaxCapacity>1</JDBCConnectionPoolParams_MaxCapacity>
-						</deployable>
+						-->
 					</deployables>
 
-					<environmentId>Environments/WLS-Tests</environmentId>
+					<environmentId>Environments/Tomcat-Env</environmentId>
 
 				</configuration>
 			</plugin>
@@ -88,15 +82,15 @@
 	</build>
 
 	<dependencies>
-    <dependency>
-      <groupId>com.xebialabs.deployit.demos</groupId>
+		<dependency>
+			<groupId>com.xebialabs.deployit.demos</groupId>
 			<artifactId>PetClinic</artifactId>
 			<version>1.0</version>
 			<type>war</type>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-      <groupId>com.xebialabs.deployit.demos</groupId>
+			<groupId>com.xebialabs.deployit.demos</groupId>
 			<artifactId>PetClinic-Backend</artifactId>
 			<version>1.2</version>
 			<type>war</type>
