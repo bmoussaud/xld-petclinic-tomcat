@@ -1,0 +1,25 @@
+# use glob syntax.
+syntax: glob
+target/
+.svn/
+.settings
+.classpath
+.project
+.metadata
+.pydevproject
+*.iml
+*.ipr
+*.iws
+*.log
+build-number.txt
+atlassian-ide-plugin.xml
+.gradle/
+.idea/
+out/
+build/
+classes/
+bin/
+s101plugin.state
+.DS_Store
+itest.properties
+!overthere-plugin/src/test/resources/itest.properties
