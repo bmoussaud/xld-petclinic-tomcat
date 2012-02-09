@@ -19,7 +19,8 @@ String title =resource.getString("title");
 <div id="main">
 <img src="/petclinic/images/pets.png" align="right" style="position:relative;right:30px;">
 <p>&nbsp;</p>
-	<p>-- {{TITLE}}-- </p>
+
+	<p>-- {{TITLE}} -- </p>
 
 <ul>
   <li><a href="/petclinic/findOwners.jsp">Find owner</a></li>
