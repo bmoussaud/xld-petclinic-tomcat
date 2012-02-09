@@ -6,7 +6,7 @@
 	<artifactId>deployit-petclinic-parent</artifactId>
 	<version>1.0</version>
 	<packaging>pom</packaging>
-	<name>PetClinic Deployit pom</name>
+	<name>PetClinic Deployit Pom</name>
 	<url>http://www.xebialabs.com</url>
 	<modules>
 		<module>PetClinic</module>
