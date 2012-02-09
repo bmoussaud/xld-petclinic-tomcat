@@ -1,5 +1,5 @@
 
-common=repository.create(factory.configurationItem('Environments/DictCommon', 'udm.Dictionary', {'entries':{'tomcat.DataSource.driverClassName':'com.mysql.jdbc.Driver','tomcat.DataSource.url':'jdbc:mysql://localhost/petclinic'}}))
+common=repository.create(factory.configurationItem('Environments/DictCommon', 'udm.Dictionary', {'entries':{'tomcat.DataSource.driverClassName':'com.mysql.jdbc.Driver','tomcat.DataSource.url':'jdbc:mysql://localhost/petclinic','tomcat.DataSource.context':'petclinic'}}))
 
 host=repository.create(factory.configurationItem('Infrastructure/host-ubuntu-vm', 'overthere.SshHost', {'address':'deployit.vm','os':'UNIX', 'connectionType':'SFTP', 'username':'ubuntu', 'password':'ubuntu'}))
 tomcatdev=repository.create(factory.configurationItem(host.id+'/tomcat-dev', 'tomcat.Server', {'host':host.id,'home':'/home/ubuntu/tomcat/tomcat-dev','startCommand':'/home/ubuntu/tomcat/tomcat-dev/bin/startup.sh','stopCommand':'/home/ubuntu/tomcat/tomcat-dev/bin/shutdown.sh'}))
