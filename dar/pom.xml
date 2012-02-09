@@ -62,7 +62,6 @@
 							-->
 						</deployable>
 
-						<!--
 						<deployable>
 							<type>file.Archive</type>
 							<groupId>mysql</groupId>
@@ -73,7 +72,6 @@
 							<type>file.Folder</type>
 							<location>config</location>
 						</deployable>
-						-->
 					</deployables>
 
 					<environmentId>Environments/Tomcat-Dev</environmentId>
