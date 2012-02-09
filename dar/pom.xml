@@ -30,7 +30,7 @@
 				</executions>
 
 				<configuration>
-					<testMode>false</testMode>
+					<testMode>true</testMode>
 					<skipMode>true</skipMode>
 
 					<deletePreviouslyDeployedDar>true</deletePreviouslyDeployedDar>
@@ -76,7 +76,7 @@
 						-->
 					</deployables>
 
-					<environmentId>Environments/Tomcat-Env</environmentId>
+					<environmentId>Environments/Tomcat-Dev</environmentId>
 
 				</configuration>
 			</plugin>
