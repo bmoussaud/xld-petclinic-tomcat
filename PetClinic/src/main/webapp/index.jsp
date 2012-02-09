@@ -1,7 +1,10 @@
 <%@ page language="java" import="java.util.*" %>
 <%
+try {
 ResourceBundle resource = ResourceBundle.getBundle("petclinic");
 String title =resource.getString("title");
+}catch (Exception e) {
+}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -16,7 +19,7 @@ String title =resource.getString("title");
 <div id="main">
 <img src="/petclinic/images/pets.png" align="right" style="position:relative;right:30px;">
 <p>&nbsp;</p>
-	<p>-- <%=title %>-- </p>
+	<p>-- {{TITLE}}-- </p>
 
 <ul>
   <li><a href="/petclinic/findOwners.jsp">Find owner</a></li>
