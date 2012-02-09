@@ -54,10 +54,12 @@
 							<name>petclinicDS</name>
 							<type>tomcat.DataSourceSpec</type>
 							<jndiName>jndi/toto</jndiName>
+							<!--
 							<driverClassName>com.mysql.jdbc.Driver</driverClassName>
 							<url>jdbc:mysql://localhost/petclinic</url>
 							<username>{{DATABASE_USERNAME}}</username>
 							<password>{{DATABASE_PASSWORD}}</password>
+							-->
 						</deployable>
 
 						<!--
