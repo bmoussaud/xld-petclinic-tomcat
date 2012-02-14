@@ -11,7 +11,6 @@
 	<modules>
 		<module>PetClinic</module>
 		<module>PetClinic-Backend</module>
-		<module>dar</module>
 	</modules>
 	<pluginRepositories>
 		<pluginRepository>
