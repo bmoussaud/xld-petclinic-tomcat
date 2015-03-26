@@ -5,4 +5,23 @@ This project is a a typical multi-modules maven project with
 
 it uses the [XL Deploy Maven plugin](https://docs.xebialabs.com/deployit-maven-plugin/4.5.2) to package the dar file.
 
-# etup
+# setup
+Edit your Maven's setting XML File and add a new `<server>` section:
+
+```
+ <servers>
+     <server>
+      <id>nexus-xebialabs</id>
+      <username><YOUR_USERNAME></username>
+      <password><YOUR_PASSWORD></password>
+    </server>
+  </servers>
+```
+
+# run
+
+```
+mvn clean package
+```
+
+
