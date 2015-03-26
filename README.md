@@ -21,6 +21,7 @@ Edit your Maven's setting XML File and add a new `<server>` section:
 # run
 
 ` mvn clean package` creates a dar file (dar/target//PetPortal-3.0-CD-SNAPSHOT.dar)
+
 ` mvn clean install` creates a dar file (dar/target//PetPortal-3.0-CD-SNAPSHOT.dar), imports it into your XLDeploy Server and deploys into `Environments/Dev/Tomcat-Dev` environment.
 
 
