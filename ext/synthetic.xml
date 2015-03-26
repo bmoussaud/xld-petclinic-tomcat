@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<synthetic xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd" xmlns="http://www.xebialabs.com/deployit/synthetic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <type type="app.ConfiguredLogger" extends="generic.CopiedArtifact"
+    deployable-type="app.Logger" container-type="tomcat.Server">
+    <generate-deployable type="app.Logger" extends="generic.Folder"/>
+    <property name="targetDirectory" hidden="true" default="${deployed.container.home}/config"/>
+    <property name="createTargetDirectory" hidden="true" kind="boolean" default="true"/>
+    <property name="restartRequired" kind="boolean" default="true" hidden="true"/>
+    <property name="createVerb" default="Configure" hidden="true"/>
+    <property name="destroyVerb" default="Destroy" hidden="true"/>
+  </type>
+
+</synthetic>
