@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.xebialabs.xldeploy.demos</groupId>
-    <artifactId>xldeploy-petclinic-parent</artifactId>
-    <version>1.0</version>
-    <packaging>pom</packaging>
-    <name>PetClinic XL Deploy Pom</name>
-    <url>http://www.xebialabs.com</url>
-    <modules>
-        <module>PetClinic</module>
-        <module>PetClinic-Backend</module>
-        <module>dar</module>
-    </modules>
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.xebialabs.xldeploy.demos</groupId>
+  <artifactId>xldeploy-petclinic-parent</artifactId>
+  <version>1.0</version>
+  <packaging>pom</packaging>
+  <name>PetClinic XL Deploy Pom</name>
+  <url>http://www.xebialabs.com</url>
+  <modules>
+    <module>PetClinic</module>
+    <module>PetClinic-Backend</module>
+    <module>dar</module>
+  </modules>
 
-    <pluginRepositories>
-        <pluginRepository>
-            <id>nexus-xebialabs</id>
-            <url>http://nexus.xebialabs.com/nexus/content/repositories/releases</url>
-        </pluginRepository>
-    </pluginRepositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>nexus-dexter-releases</id>
+      <url>http://nexus.xebialabs.com/nexus/content/repositories/releases</url>
+    </pluginRepository>
+    <pluginRepository>
+      <id>dist-releases</id>
+      <url>http://dist.xebialabs.com/public/maven2</url>
+    </pluginRepository>
+  </pluginRepositories>
 
 </project>
