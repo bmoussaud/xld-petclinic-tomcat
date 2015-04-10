@@ -1,0 +1,82 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.xebialabs.xldeploy.demos</groupId>
+  <artifactId>WhaleApp</artifactId>
+  <packaging>dar</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>Whale App XL Deploy DAR</name>
+  <url>http://www.xebialabs.com</url>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.xebialabs.deployit</groupId>
+        <artifactId>maven-deployit-plugin</artifactId>
+        <version>4.5.2</version>
+        <extensions>true</extensions>
+        <executions>
+          <execution>
+            <id>deploy-id</id>
+            <phase>pre-integration-test</phase>
+            <goals>
+              <goal>deploy</goal>
+            </goals>
+          </execution>
+        </executions>
+
+        <configuration>
+          <deployables>
+
+            <smoketest.HttpRequestTest name="smoke test">
+              <url>http://petclinic:8080/petclinic</url>
+              <expectedResponseText>Home</expectedResponseText>
+              <links>
+                <value>petclinic:petclinic</value>
+              </links>
+            </smoketest.HttpRequestTest>
+
+            <docker.Image name="petclinic">
+              <image>petportal/petclinic:${image.version}</image>
+              <ports>
+                <docker.PortSpec name="petclinic/exposed-port">
+                  <hostPort>8888</hostPort>
+                  <containerPort>8080</containerPort>
+                </docker.PortSpec>
+              </ports>
+              <links>
+                <value>petclinic-backend:petclinic-backend</value>
+              </links>
+              <volumes>
+                <docker.VolumeSpec name="petclinic/petclinic-config">
+                  <hostPath>/opt/docker/volumes/petclinic-config</hostPath>
+                  <containerPath>/usr/local/tomcat/conf/Catalina/localhost</containerPath>
+                </docker.VolumeSpec>
+              </volumes>
+            </docker.Image>
+
+            <docker.Image name="petclinic-backend">
+              <image>petportal/petclinic-back:${image.version}</image>
+            </docker.Image>
+
+            <sql.SqlScripts name="sql" location="sql"/>
+
+          </deployables>
+
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>nexus-dexter-releases</id>
+      <url>http://nexus.xebialabs.com/nexus/content/repositories/releases</url>
+    </pluginRepository>
+    <pluginRepository>
+      <id>dist-releases</id>
+      <url>http://dist.xebialabs.com/public/maven2</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+</project>
+
