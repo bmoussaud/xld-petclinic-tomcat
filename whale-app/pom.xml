@@ -25,6 +25,10 @@
         </executions>
 
         <configuration>
+          <serverAddress>localhost</serverAddress>
+          <port>4517</port>
+          <username>admin</username>
+          <password>admin</password>
           <deployables>
 
             <smoketest.HttpRequestTest name="smoke test">
@@ -44,7 +48,9 @@
                 </docker.PortSpec>
               </ports>
               <links>
-                <value>petclinic-backend:petclinic-backend</value>
+                <docker.LinkSpec name="petclinic/petclinic-backend">
+                  <alias>petclinic-backend</alias>
+                </docker.LinkSpec>
               </links>
               <volumes>
                 <docker.VolumeSpec name="petclinic/petclinic-config">
