@@ -10,9 +10,9 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>com.xebialabs.deployit</groupId>
-        <artifactId>maven-deployit-plugin</artifactId>
-        <version>4.5.2</version>
+        <groupId>com.xebialabs.xldeploy</groupId>
+        <artifactId>xldeploy-maven-plugin</artifactId>
+        <version>5.0.1</version>
         <extensions>true</extensions>
         <executions>
           <execution>
@@ -75,12 +75,12 @@
 
   <pluginRepositories>
     <pluginRepository>
-      <id>nexus-dexter-releases</id>
-      <url>http://nexus.xebialabs.com/nexus/content/repositories/releases</url>
+      <id>xebialabs-maven2</id>
+      <url>https://dist.xebialabs.com/public/maven2/</url>
     </pluginRepository>
     <pluginRepository>
-      <id>dist-releases</id>
-      <url>http://dist.xebialabs.com/public/maven2</url>
+      <id>knopflerfish</id>
+      <url>http://www.knopflerfish.org/maven2</url>
     </pluginRepository>
   </pluginRepositories>
 
