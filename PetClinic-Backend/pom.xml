@@ -10,7 +10,7 @@
   <artifactId>PetClinic-Backend</artifactId>
   <version>1.2</version>
   <packaging>war</packaging>
-  <name>PetClinic-Backend Maven Webapp</name>
+  <name>PetClinic-Backend Docker Webapp</name>
   <url>http://maven.apache.org</url>
   <build>
     <finalName>PetClinic-Backend</finalName>
@@ -25,6 +25,37 @@
           </archive>
         </configuration>
       </plugin>
+
+      <plugin>
+        <groupId>com.spotify</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <version>0.3.2</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>build</goal>
+            </goals>
+          </execution>
+        </executions>
+
+        <configuration>
+          <imageName>petclinic-backend</imageName>
+          <dockerDirectory>${basedir}/src/main/docker</dockerDirectory>
+          <imageTags>
+            <tag>${petclinic-backend.image.version}</tag>
+          </imageTags>
+          <resources>
+            <resource>
+              <targetPath>/</targetPath>
+              <directory>${project.build.directory}</directory>
+              <include>${project.build.finalName}.war</include>
+            </resource>
+          </resources>
+        </configuration>
+      </plugin>
+
+
     </plugins>
   </build>
   <dependencies>

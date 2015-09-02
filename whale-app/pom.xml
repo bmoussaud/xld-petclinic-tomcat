@@ -16,12 +16,20 @@
         <extensions>true</extensions>
         <executions>
           <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>import</goal>
+            </goals>
+          </execution>
+
+          <execution>
             <id>deploy-id</id>
             <phase>pre-integration-test</phase>
             <goals>
               <goal>deploy</goal>
             </goals>
           </execution>
+
         </executions>
 
         <configuration>

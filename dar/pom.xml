@@ -10,7 +10,7 @@
   <artifactId>PetPortal</artifactId>
   <packaging>dar</packaging>
   <version>3.0-CD-SNAPSHOT</version>
-  <name>PetClinic XL Deploy DAR</name>
+  <name>PetClinic Docker XL Deploy DAR</name>
   <url>http://www.xebialabs.com</url>
   <build>
     <plugins>
@@ -32,28 +32,51 @@
 
         <configuration>
           <serverAddress>localhost</serverAddress>
+          <applicationName>Docker/PetDocker</applicationName>
           <deployables>
-            <jee.War name="petclinic" groupId="com.xebialabs.xldeploy.demos" artifactId="PetClinic">
-              <scanPlaceholders>true</scanPlaceholders>
-            </jee.War>
-            <jee.War name="petclinic-backend" groupId="com.xebialabs.xldeploy.demos" artifactId="PetClinic-Backend"/>
 
-            <jee.DataSourceSpec name="petclinicDataSource">
-              <jndiName>jdbc/petds</jndiName>
-            </jee.DataSourceSpec>
+            <smoketest.HttpRequestTest name="smoke test">
+              <url>http://petclinic:8080/petclinic</url>
+              <expectedResponseText>Home</expectedResponseText>
+              <links>
+                <value>petclinic:petclinic</value>
+              </links>
+            </smoketest.HttpRequestTest>
 
-            <app.Logger name="logger" location="logger"/>
+            <docker.Image name="petclinic">
+              <image>petclinic:${petclinic.image.version}</image>
+              <ports>
+                <docker.PortSpec name="petclinic/exposed-port">
+                  <hostPort>8888</hostPort>
+                  <containerPort>8080</containerPort>
+                </docker.PortSpec>
+              </ports>
+              <links>
+                <docker.LinkSpec name="petclinic/petclinic-backend">
+                  <alias>petclinic-backend</alias>
+                </docker.LinkSpec>
+              </links>
+              <volumes>
+                <docker.VolumeSpec name="petclinic/petclinic-config">
+                  <hostPath>/opt/docker/volumes/petclinic-config</hostPath>
+                  <containerPath>/usr/local/tomcat/conf/Catalina/localhost</containerPath>
+                </docker.VolumeSpec>
+              </volumes>
+            </docker.Image>
+
+            <docker.Image name="petclinic-backend">
+              <image>petclinic-backend:${petclinic-backend.image.version}</image>
+            </docker.Image>
+
             <sql.SqlScripts name="sql" location="sql"/>
-            <tests2.HttpRequestTest name="testPage"/>
           </deployables>
 
-          <environmentId>Environments/Dev/Tomcat-Dev</environmentId>
 
         </configuration>
       </plugin>
     </plugins>
   </build>
-
+  <!--
   <dependencies>
     <dependency>
       <groupId>com.xebialabs.xldeploy.demos</groupId>
@@ -76,6 +99,7 @@
       <scope>provided</scope>
     </dependency>
   </dependencies>
+-->
 
 </project>
 

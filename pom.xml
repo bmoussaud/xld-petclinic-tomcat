@@ -6,8 +6,15 @@
   <artifactId>xldeploy-petclinic-parent</artifactId>
   <version>1.0</version>
   <packaging>pom</packaging>
-  <name>PetClinic XL Deploy Pom</name>
+  <name>PetClinic Docker XL Deploy</name>
   <url>http://www.xebialabs.com</url>
+  <properties>
+    <maven.build.timestamp.format>yyyyddMMHHmmss</maven.build.timestamp.format>
+    <petclinic.build.date>${maven.build.timestamp}</petclinic.build.date>
+    <petclinic.image.version>3.1-${petclinic.build.date}</petclinic.image.version>
+    <petclinic-backend.image.version>1.1-${petclinic.build.date}</petclinic-backend.image.version>
+  </properties>
+
   <modules>
     <module>PetClinic</module>
     <module>PetClinic-Backend</module>
@@ -24,7 +31,6 @@
       <url>http://www.knopflerfish.org/maven2</url>
     </pluginRepository>
   </pluginRepositories>
-
 
 
 </project>

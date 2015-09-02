@@ -8,14 +8,14 @@
     <version>1.0</version>
   </parent>
   <artifactId>PetClinic</artifactId>
-  <version>1.0</version>
+  <version>3.1</version>
   <packaging>war</packaging>
-  <name>PetClinic Maven Webapp</name>
+  <name>PetClinic Docker Webapp</name>
   <url>http://www.xebialabs.com</url>
   <build>
     <finalName>PetClinic</finalName>
     <plugins>
-       <plugin>
+      <plugin>
         <groupId>com.spotify</groupId>
         <artifactId>docker-maven-plugin</artifactId>
         <version>0.3.2</version>
@@ -30,8 +30,10 @@
 
         <configuration>
           <imageName>petclinic</imageName>
-          <dockerDirectory>src/main/docker</dockerDirectory>
-          <useGitCommitId>true</useGitCommitId>
+          <dockerDirectory>${basedir}/src/main/docker</dockerDirectory>
+          <imageTags>
+            <tag>${petclinic.image.version}</tag>
+          </imageTags>
           <resources>
             <resource>
               <targetPath>/</targetPath>
