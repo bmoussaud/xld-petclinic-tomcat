@@ -8,7 +8,7 @@
     <version>1.0</version>
   </parent>
   <artifactId>PetClinic</artifactId>
-  <version>3.1</version>
+  <version>4.1-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>PetClinic Docker Webapp</name>
   <url>http://www.xebialabs.com</url>
@@ -19,29 +19,45 @@
         <groupId>com.spotify</groupId>
         <artifactId>docker-maven-plugin</artifactId>
         <version>0.3.2</version>
+
         <executions>
           <execution>
+            <id>build-docker-image</id>
             <phase>package</phase>
             <goals>
               <goal>build</goal>
             </goals>
+
+            <configuration>
+              <imageName>petportal/petclinic</imageName>
+              <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+              <resources>
+                <resource>
+                  <targetPath>/</targetPath>
+                  <directory>${project.build.directory}</directory>
+                  <include>${project.build.finalName}.war</include>
+                </resource>
+              </resources>
+            </configuration>
           </execution>
+
+          <execution>
+            <id>push-docker-image</id>
+            <phase>install</phase>
+            <goals>
+              <goal>tag</goal>
+            </goals>
+
+            <configuration>
+              <image>petportal/petclinic</image>
+              <newName>localhost:5000/petportal/petclinic:${petclinic.image.version}</newName>
+              <pushImage>true</pushImage> <!-- We are also pushing this time -->
+              <tagInfoFile>${project.build.directory}/docker_image_info.json</tagInfoFile>
+            </configuration>
+          </execution>
+
         </executions>
 
-        <configuration>
-          <imageName>petclinic</imageName>
-          <dockerDirectory>${basedir}/src/main/docker</dockerDirectory>
-          <imageTags>
-            <tag>${petclinic.image.version}</tag>
-          </imageTags>
-          <resources>
-            <resource>
-              <targetPath>/</targetPath>
-              <directory>${project.build.directory}</directory>
-              <include>${project.build.finalName}.war</include>
-            </resource>
-          </resources>
-        </configuration>
       </plugin>
 
     </plugins>

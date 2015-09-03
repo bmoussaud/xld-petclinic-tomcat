@@ -30,29 +30,45 @@
         <groupId>com.spotify</groupId>
         <artifactId>docker-maven-plugin</artifactId>
         <version>0.3.2</version>
+
         <executions>
           <execution>
+            <id>build-docker-image</id>
             <phase>package</phase>
             <goals>
               <goal>build</goal>
             </goals>
+
+            <configuration>
+              <imageName>petportal/petclinic-backend</imageName>
+              <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+              <resources>
+                <resource>
+                  <targetPath>/</targetPath>
+                  <directory>${project.build.directory}</directory>
+                  <include>${project.build.finalName}.war</include>
+                </resource>
+              </resources>
+            </configuration>
           </execution>
+
+          <execution>
+            <id>push-docker-image</id>
+            <phase>install</phase>
+            <goals>
+              <goal>tag</goal>
+            </goals>
+
+            <configuration>
+              <image>petportal/petclinic-backend</image>
+              <newName>localhost:5000/petportal/petclinic-backend:${petclinic-backend.image.version}</newName>
+              <pushImage>true</pushImage> <!-- We are also pushing this time -->
+              <tagInfoFile>${project.build.directory}/docker_image_info.json</tagInfoFile>
+            </configuration>
+          </execution>
+
         </executions>
 
-        <configuration>
-          <imageName>petclinic-backend</imageName>
-          <dockerDirectory>${basedir}/src/main/docker</dockerDirectory>
-          <imageTags>
-            <tag>${petclinic-backend.image.version}</tag>
-          </imageTags>
-          <resources>
-            <resource>
-              <targetPath>/</targetPath>
-              <directory>${project.build.directory}</directory>
-              <include>${project.build.finalName}.war</include>
-            </resource>
-          </resources>
-        </configuration>
       </plugin>
 
 
