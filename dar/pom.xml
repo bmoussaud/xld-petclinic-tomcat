@@ -33,6 +33,13 @@
         <configuration>
           <serverAddress>localhost</serverAddress>
           <applicationName>Docker/PetDocker</applicationName>
+          <deploymentPackageProperties>
+            <orchestrator>
+              <value>parallel-by-deployment-group</value>
+            </orchestrator>
+          </deploymentPackageProperties>
+
+          <orchestrator>parallel-by-deployment-group</orchestrator>
           <deployables>
 
             <smoketest.HttpRequestTest name="smoke test">
