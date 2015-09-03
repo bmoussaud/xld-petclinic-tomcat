@@ -44,7 +44,7 @@
             </smoketest.HttpRequestTest>
 
             <docker.Image name="petclinic">
-              <image>petclinic:${petclinic.image.version}</image>
+              <image>petportal/petclinic:${petclinic.image.version}</image>
               <ports>
                 <docker.PortSpec name="petclinic/exposed-port">
                   <hostPort>8888</hostPort>
@@ -65,7 +65,7 @@
             </docker.Image>
 
             <docker.Image name="petclinic-backend">
-              <image>petclinic-backend:${petclinic-backend.image.version}</image>
+              <image>petportal/petclinic-backend:${petclinic-backend.image.version}</image>
             </docker.Image>
 
             <sql.SqlScripts name="sql" location="sql"/>
