@@ -15,9 +15,9 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>com.xebialabs.deployit</groupId>
-                <artifactId>maven-deployit-plugin</artifactId>
-                <version>4.5.2</version>
+                <groupId>com.xebialabs.xldeploy</groupId>
+                <artifactId>xldeploy-maven-plugin</artifactId>
+                <version>5.0.1</version>
                 <extensions>true</extensions>
                 <executions>
                     <execution>
@@ -43,7 +43,10 @@
 
                         <app.Logger name="logger" location="logger"/>
                         <sql.SqlScripts name="sql" location="sql"/>
-                        <tests2.HttpRequestTest name="testPage"/>
+                        <smoketest.HttpRequestTest name="testPage">
+                            <url>{{smoke.test.url}}</url>
+                            <expectedResponseText>{{TITLE}}</expectedResponseText>
+                        </smoketest.HttpRequestTest>
                     </deployables>
 
                     <environmentId>Environments/Dev/Tomcat-Dev</environmentId>
