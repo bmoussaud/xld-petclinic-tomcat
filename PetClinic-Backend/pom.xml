@@ -8,7 +8,7 @@
     <version>1.0</version>
   </parent>
   <artifactId>PetClinic-Backend</artifactId>
-  <version>1.2</version>
+  <version>1.2-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>PetClinic-Backend Maven Webapp</name>
   <url>http://maven.apache.org</url>
