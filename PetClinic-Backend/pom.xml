@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.xebialabs.xldeploy.demos</groupId>
     <artifactId>xldeploy-petclinic-parent</artifactId>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
   </parent>
   <artifactId>PetClinic-Backend</artifactId>
   <version>1.2-SNAPSHOT</version>
