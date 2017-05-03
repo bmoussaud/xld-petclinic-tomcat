@@ -40,8 +40,9 @@
             <jee.DataSourceSpec name="petclinicDataSource">
               <jndiName>jdbc/petds</jndiName>
             </jee.DataSourceSpec>
-
+            <!--
             <app.Logger name="logger" location="logger"/>
+-->
             <sql.SqlScripts name="sql" location="sql"/>
             <smoketest.HttpRequestTest name="testPage">
               <url>{{smoke.test.url}}</url>
