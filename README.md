@@ -27,7 +27,5 @@ Edit your Maven's setting XML File and add a new `<server>` section:
 
 # Extension
 
-The project uses a customs extensions `app.Logger` whose the definition
-is in the `ext/` directory.
-
+* install the smoke test plugin in your XLDeploy https://github.com/xebialabs-community/xld-smoke-test-plugin/releases/tag/v1.0.3
 
