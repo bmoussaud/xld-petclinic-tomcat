@@ -2,21 +2,60 @@
 apiVersion: xl-deploy/v1
 kind: Infrastructure
 spec:
-- name: Infrastructure/host-dev-vm/sql-dev
-  type: sql.MySqlClient
-  username: root
-  password: tigertigertiger
-  databaseName: petclinicDev
-- name: Infrastructure/host-dev-vm/testRunner
-  type: smoketest.Runner
-  powershellInstalled: false
-- name: Infrastructure/host-dev-vm/tomcat-dev
-  type: tomcat.Server
-  home: /home/ubuntu/tomcat/tomcat-dev
-  startCommand: nohup /home/ubuntu/tomcat/tomcat-dev/bin/startup.sh && sleep 5
-  stopCommand: /home/ubuntu/tomcat/tomcat-dev/bin/shutdown.sh
+- name: Infrastructure/host-dev-vm
+  type: overthere.SshHost
+  os: UNIX
+  tmpDeleteOnDisconnect: false
+  address: deployit.vm
+  username: ubuntu
+  password: ubuntu
   children:
-  - name: tomcat.vh
-    type: tomcat.VirtualHost
-    appBase: webapps
-    hostName: localhost
+  - name: tomcat-dev
+    type: tomcat.Server
+    home: /home/ubuntu/tomcat/tomcat-dev
+    startCommand: nohup /home/ubuntu/tomcat/tomcat-dev/bin/startup.sh && sleep 5
+    stopCommand: /home/ubuntu/tomcat/tomcat-dev/bin/shutdown.sh
+    children:
+      - name: tomcat.vh
+        type: tomcat.VirtualHost
+        appBase: webapps
+        hostName: localhost
+  - name: sql-dev
+    type: sql.MySqlClient
+    username: root
+    password: xxxxxxx
+    databaseName: petclinicDev
+    mySqlHome: /usr
+  - name: testRunner
+    type: smoketest.Runner
+---
+apiVersion: xl-deploy/v1
+kind: Environments
+spec:
+- name: PetClinic Dictionary
+  type: udm.Dictionary
+  entries:
+    TITLE: My Little Pony
+    log.FilePath: Debug
+    log.RootLevel: /dev/null
+    smoke.test.url: http://localhost:8080/petclinic/index.jsp
+- name: PetClinic DB Dictionary
+  type: udm.Dictionary
+  entries:
+    tomcat.DataSource.driverClassName: com.mysql.jdbc.Driver
+    tomcat.DataSource.url: jdbc:mysql://localhost/petclinic
+    tomcat.DataSource.username: scott
+    tomcat.DataSource.context: petclinic
+  encryptedEntries:
+    tomcat.DataSource.password: passwor
+- name: Pet-Dev
+  type: udm.Environment
+  members:
+  - ~Infrastructure/host-dev-vm/tomcat-dev/tomcat.vh
+  - ~Infrastructure/host-dev-vm/sql-dev
+  - ~Infrastructure/host-dev-vm/tomcat-dev
+  - ~Infrastructure/host-dev-vm/testRunner
+  - ~Infrastructure/host-dev-vm
+  dictionaries:
+  - ~Environments/PetClinic Dictionary
+  - ~Environments/PetClinic DB Dictionary
