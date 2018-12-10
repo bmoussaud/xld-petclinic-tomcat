@@ -1,0 +1,22 @@
+---
+apiVersion: xl-deploy/v1
+kind: Infrastructure
+spec:
+- name: Infrastructure/host-dev-vm/sql-dev
+  type: sql.MySqlClient
+  username: root
+  password: tigertigertiger
+  databaseName: petclinicDev
+- name: Infrastructure/host-dev-vm/testRunner
+  type: smoketest.Runner
+  powershellInstalled: false
+- name: Infrastructure/host-dev-vm/tomcat-dev
+  type: tomcat.Server
+  home: /home/ubuntu/tomcat/tomcat-dev
+  startCommand: nohup /home/ubuntu/tomcat/tomcat-dev/bin/startup.sh && sleep 5
+  stopCommand: /home/ubuntu/tomcat/tomcat-dev/bin/shutdown.sh
+  children:
+  - name: tomcat.vh
+    type: tomcat.VirtualHost
+    appBase: webapps
+    hostName: localhost
