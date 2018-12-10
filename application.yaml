@@ -14,10 +14,6 @@ spec:
     - name: petclinic-backend
       type: jee.War
       file: !file "PetClinic-Backend/target/PetClinic-Backend.war"
-    - name: logger
-      type: app.Logger
-      scanPlaceholders: true
-      file: !file "dar/logger"
     - name: sql
       type: sql.SqlScripts
       file: !file "dar/sql"
