@@ -1,0 +1,10 @@
+apiVersion: xl-deploy/v1
+kind: Deployment
+spec:
+  package: Applications/PetPortal/2.0-92
+  environment: Environments/Pet-Dev
+  #orchestrators:
+  #  - parallel-by-deployment-group
+  #  - sequential-by-container
+
+

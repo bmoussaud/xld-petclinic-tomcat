@@ -38,7 +38,7 @@ spec:
     TITLE: My Little Pony
     log.FilePath: Debug
     log.RootLevel: /dev/null
-    smoke.test.url: http://localhost:8080/petclinic/index.jsp
+    smoke.test.url: http://deployit.vm:8080/petclinic/index.jsp
 - name: PetClinic DB Dictionary
   type: udm.Dictionary
   entries:

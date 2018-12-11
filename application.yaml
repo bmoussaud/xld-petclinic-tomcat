@@ -4,7 +4,7 @@ spec:
 - name: Applications/PetPortal
   type: udm.Application
   children:
-  - name: "2.0-90"
+  - name: "2.0-92"
     type: udm.DeploymentPackage
     children:
     - name: petclinic
@@ -22,9 +22,9 @@ spec:
       jndiName: jdbc/petds
     - name: testPage
       type: smoketest.HttpRequestTest
-      url: '{{tests2.ExecutedHttpRequestTest.url}}'
+      url: '{{smoke.test.url}}'
       expectedResponseText: '{{TITLE}}'
     - name: logger
-      type: file.Folder
+      type: app.Logger
       file: !file "dar/config"
       scanPlaceholders: true
