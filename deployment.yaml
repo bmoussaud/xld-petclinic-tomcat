@@ -2,7 +2,7 @@ apiVersion: xl-deploy/v1
 kind: Deployment
 spec:
   package: Applications/PetPortal/2.0-92
-  environment: Environments/Pet-Dev
+  environment: Environments/Dev/Tomcat-Dev-AsCode
   #orchestrators:
   #  - parallel-by-deployment-group
   #  - sequential-by-container
