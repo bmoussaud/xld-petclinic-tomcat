@@ -37,7 +37,7 @@ spec:
   - name: PetClinic Dictionary
     type: udm.Dictionary
     entries:
-      TITLE: My Little Pony
+      TITLE: !value title
       log.FilePath: Debug
       log.RootLevel: /dev/null
       smoke.test.url: http://deployit.vm:8080/petclinic/index.jsp
