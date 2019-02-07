@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2>Hello World!</h2>
+<h2>PetClinic-Backend is alive</h2>
 </body>
 </html>
