@@ -41,7 +41,7 @@ spec:
       log.FilePath: Debug
       log.RootLevel: /dev/null
       smoke.test.url: http://deployit.vm:8080/petclinic/index.jsp
-      tests2.ExecutedHttpRequestTest.url: http://deployit.vm:8080/petclinic/index.jsp
+      tests2.ExecutedHttpRequestTest.url: '{{smoke.test.url}}'
   - name: PetClinic DB Dictionary
     type: udm.Dictionary
     entries:
