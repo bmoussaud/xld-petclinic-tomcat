@@ -40,7 +40,7 @@ The commands are:
 
 Since 8.5, XL Deploy provides  [`DevOps as Code`](https://docs.xebialabs.com/xl-platform/concept/devops-as-code-overview.html)
 
-# Manage the web application
+### Manage the web application as code
 
 in the V2  Directory you'll find:
 
@@ -53,7 +53,7 @@ in the V2  Directory you'll find:
  
 execution : `xl apply -f v2/xebialabs.yaml --values title=demo-as-code`
 
-* Migration to containers
+### Using the devops as-code to migrate to containers
 
 The petclinic backend war is not packaged in a container and deployed to a Kubernetes Cluster.
  
