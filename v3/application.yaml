@@ -1,0 +1,57 @@
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- name: Applications/Java/PetPortal
+  type: udm.Application
+  children:
+  - name: !value appversion
+    type: udm.DeploymentPackage
+    children:
+    - name: petclinic
+      type: jee.War
+      scanPlaceholders: true
+      file: !file "../PetClinic/target/PetClinic.war"
+      checksum: !format 5c3a7e07c206fef%appversion%1e164252afd019bf5fb7
+    - name: sql
+      type: sql.SqlScripts
+      file: !file "../dar/sql"
+    - name: petDataSource
+      type: jee.DataSourceSpec
+      jndiName: jdbc/petds
+    - name: testPage
+      type: smoketest.HttpRequestTest
+      url: '{{smoke.test.url}}'
+      expectedResponseText: '{{TITLE}}'
+    - name: logger
+      type: app.Logger
+      file: !file "../dar/config"
+      scanPlaceholders: true
+    - name: petclinic-backend-deployment
+      type: k8s.DeploymentSpec
+      containers:
+      - name: petclinic-backend
+        type: k8s.ContainerSpec
+        containerName: petclinic-backend
+        image: !format localhost:5000/bmoussaud/petclinic-backend:%appversion%
+        ports:
+        - name: web
+          type: k8s.ContainerPortSpec
+          containerPort: "8080"
+          exposeAsService: "false"
+      podCreateDeleteRetryCount: "20"
+      labels:
+        app: petclinic-backend
+      restartPolicy: Always
+      matchLabels:
+        app: petclinic-backend
+    - name: petclinic-backend-service
+      type: k8s.ServiceSpec
+      serviceName: petclinic-backend-service
+      selectors:
+        app: petclinic-backend
+      ports:
+      - name: http
+        type: k8s.ServicePortSpec
+        port: "8000"
+        targetPort: "8888"
+
