@@ -9,7 +9,7 @@ This project is a a typical multi-modules maven project with
     * a logger, a custom extension to configure log configuration per environment 
     
     
-## extensions:
+## XLD Server configuration
 * install the smoke test plugin into the plugin directory of your XLDeploy Server : https://github.com/xebialabs-community/xld-smoke-test-plugin/releases/tag/v1.0.5)
 * paste this snippet into ext/synthetic.xml file of your XLDeploy Server
 
