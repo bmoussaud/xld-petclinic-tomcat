@@ -38,6 +38,7 @@ spec:
     type: udm.Dictionary
     entries:
       TITLE: !value title
+      title: '{{TITLE}}'
       log.FilePath: Debug
       log.RootLevel: /dev/null
       smoke.test.url: http://deployit.vm:8080/petclinic/index.jsp

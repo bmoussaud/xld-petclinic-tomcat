@@ -41,4 +41,6 @@ spec:
           type: k8s.ServicePortSpec
           port: "80"
           targetPort: "8001"
-
+      - name: cat-sql
+        type: sql.SqlScripts
+        file: !file "cat-sql"

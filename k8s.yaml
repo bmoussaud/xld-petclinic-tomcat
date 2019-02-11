@@ -1,0 +1,99 @@
+---
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- name: Applications/Containers/Petk8s/4.2-20190123-000000/pet.configuration
+  type: k8s.ConfigMapSpec
+  configMapName: petconfig
+  propertyFiles:
+  - name: log4j.properties
+    type: k8s.ConfigMapFileSpec
+    placeholders:
+    - logLevel
+    - logFilePath
+    file: !file "artifacts/Applications/Containers/Petk8s/4.2-20190123-000000/pet.configuration/log4j.properties/log4j.properties"
+  - name: petclinic.properties
+    type: k8s.ConfigMapFileSpec
+    placeholders:
+    - provider
+    - title
+    file: !file "artifacts/Applications/Containers/Petk8s/4.2-20190123-000000/pet.configuration/petclinic.properties/petclinic.properties"
+  - name: petclinic-backend.properties
+    type: k8s.ConfigMapFileSpec
+    placeholders:
+    - title
+    - timeout
+    file: !file "artifacts/Applications/Containers/Petk8s/4.2-20190123-000000/pet.configuration/petclinic-backend.properties/petclinic-backend.properties"
+- name: Applications/Containers/Petk8s/4.2-20190123-000000/petclinc-backend-depl
+  type: k8s.DeploymentSpec
+  containers:
+  - name: petclinic-backend
+    type: k8s.ContainerSpec
+    image: bmoussaud/petclinic-backend:2.1-20182301165416
+    ports:
+    - name: web
+      type: k8s.ContainerPortSpec
+      containerPort: "8081"
+  labels:
+    app: pet-back
+  matchLabels:
+    app: pet-back
+- name: Applications/Containers/Petk8s/4.2-20190123-000000/petclinic-depl
+  type: k8s.DeploymentSpec
+  containers:
+  - name: petclinic
+    type: k8s.ContainerSpec
+    image: bmoussaud/petclinic:4.1-20182301165416
+    ports:
+    - name: web
+      type: k8s.ContainerPortSpec
+      containerPort: "8080"
+    probes:
+    - name: livenessProbe
+      type: k8s.LivenessHTTPGetProbeSpec
+      successThreshold: "1"
+      initialDelaySeconds: "10"
+      periodSeconds: "30"
+      failureThreshold: "3"
+      path: /petclinic/live.jsp
+      port: "8080"
+    - name: readynessProbe
+      type: k8s.ReadinessHTTPGetProbeSpec
+      initialDelaySeconds: "10"
+      successThreshold: "1"
+      periodSeconds: "30"
+      failureThreshold: "3"
+      path: /petclinic/ready.jsp
+      port: "8080"
+    volumeBindings:
+    - name: pet.volume
+      type: k8s.MountedVolumeSpec
+      volumeName: petvolume
+      mountPath: /application/properties
+      readOnly: False
+  volumes:
+  - name: pet.volume
+    type: k8s.VolumeSpec
+    volumeName: petvolume
+    volumeType: configMap
+    properties:
+      name: petconfig
+  labels:
+    app: pet
+  matchLabels:
+    app: pet
+- name: Applications/Containers/Petk8s/4.2-20190123-000000/petclinic.service
+  type: k8s.ServiceSpec
+  serviceName: petclinicservice
+  serviceType: NodePort
+  selectors:
+    app: pet
+  ports:
+  - name: web
+    type: k8s.ServicePortSpec
+    nodePort: '{{petclinic.service.port}}'
+    port: "8080"
+- name: Applications/Containers/Petk8s/4.2-20190123-000000/smoke test petclinic ui
+  type: smoketest.HttpRequestTest
+  url: '{{smoke.test.url}}'
+  expectedResponseText: '{{title}}'

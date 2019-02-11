@@ -88,9 +88,7 @@ d4dcf092f47b: Layer already exists
 Applying application.yaml (imported by xebialabs.yaml)
 Created Applications/Java/PetPortal/3.0.4/petclinic
 Created Applications/Java/PetPortal/3.0.4/sql
-Created Applications/Java/PetPortal/3.0.4/petDataSource
-Created Applications/Java/PetPortal/3.0.4/testPage
-Created Applications/Java/PetPortal/3.0.4/logger
+.....
 Created Applications/Java/PetPortal/3.0.4/petclinic-backend-deployment/petclinic-backend/web
 Created Applications/Java/PetPortal/3.0.4/petclinic-backend-deployment/petclinic-backend
 Created Applications/Java/PetPortal/3.0.4/petclinic-backend-deployment
@@ -99,21 +97,12 @@ Created Applications/Java/PetPortal/3.0.4/petclinic-backend-service
 Created Applications/Java/PetPortal/3.0.4
 Updated Applications/Java/PetPortal
 Applying k8s.yaml (imported by xebialabs.yaml)
-Updated Infrastructure/AsCode/mykube/dev
-Updated Infrastructure/AsCode/mykube/prd
-Updated Infrastructure/AsCode/mykube/qa
+...
 Updated Infrastructure/AsCode/mykube
 Updated Infrastructure/AsCode
 Applying infrastructure.yaml (imported by xebialabs.yaml)
 Updated Infrastructure/AsCode/host-dev-vm/tomcat-dev/tomcat.vh
-Updated Infrastructure/AsCode/host-dev-vm/tomcat-dev
-Updated Infrastructure/AsCode/host-dev-vm/sql-dev
-Updated Infrastructure/AsCode/host-dev-vm/testRunner
-Updated Infrastructure/AsCode/host-dev-vm
-Updated Infrastructure/AsCode
-Updated Environments/Dev/AsCode/PetClinic Dictionary
-Updated Environments/Dev/AsCode/PetClinic DB Dictionary
-Updated Environments/Dev/AsCode
+....
 Updated Environments/Dev/Tomcat-Dev-AsCode
 Applying deployment.yaml (imported by xebialabs.yaml)
 
