@@ -17,15 +17,9 @@ spec:
         propertyFiles:
         - name: log4j.properties
           type: k8s.ConfigMapFileSpec
-          placeholders:
-          - logLevel
-          - logFilePath
           file: !file "pet.configuration/log4j.properties/log4j.properties"
         - name: petclinic.properties
           type: k8s.ConfigMapFileSpec
-          placeholders:
-          - provider
-          - title
           file: !file "pet.configuration/petclinic.properties/petclinic.properties"
       - name: petclinic-depl
         type: k8s.DeploymentSpec
@@ -84,8 +78,8 @@ spec:
       - name: petclinic-ingress
         type: k8s.IngressSpec
         annotations:
-          nginx.ingress.kubernetes.io/rewrite-target: /
-          ingress.kubernetes.io/rewrite-target: /
+          #nginx.ingress.kubernetes.io/rewrite-target: /petclinic
+          ingress.kubernetes.io/rewrite-target: /petclinic
           nginx.ingress.kubernetes.io/ssl-redirect: "false"
         rules:
         - name: http
@@ -93,7 +87,7 @@ spec:
           paths:
           - name: ascode
             type: k8s.IngressPathSpec
-            path: /as-code
+            path: /petclinic
             serviceName: petclinicservice
             servicePort: "8080"
       - name: smoke test petclinic ui

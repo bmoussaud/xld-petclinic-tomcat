@@ -51,11 +51,11 @@ in the `tomcat` Directory you'll find:
 * deployment.yaml triggers a deployment  PetPortal/2.0-92 -> Tomcat-Dev-AsCode
 * xebialabs.yaml an import yaml file that includes the 3 previous files.
  
-execution : `xl apply -f tomcat/xebialabs.yaml --values title=demo-as-code`
+execution : `xl apply -f tomcat/xebialabs.yaml --values title=demo-as-code`  or `run-tomcat.sh`
 
 ### Using the devops as-code to migrate to containers
 
-The petclinic backend war is not packaged in a container and deployed to a Kubernetes Cluster.
+The petclinic backend war is now packaged and defined in a container and deployed to a Kubernetes Cluster.
  
 in the `containers`  Directory you'll find:
 * in application.yaml, the backend petclinic has been defined using `k8s.DeploymentSpec` and `k8s.ServiceSpec`
@@ -64,10 +64,10 @@ in the `containers`  Directory you'll find:
 * deployment.yaml triggers a deployment  PetPortal/(Version) -> Tomcat-Dev-AsCode
 * xebialabs.yaml an import yaml file that includes the 4 previous files.
 
-all the commands are in the `run-container.sh script that builds the images and runs the 'xl apply' commands.
+all the commands are in the `run-k8s-containers.sh`  script that builds the images and runs the 'xl apply' commands.
 
 ```
-$ ./run-containers.sh 3.0.4
+$ ./run-k8s-containers.sh 
 building localhost:5000/bmoussaud/petclinic-backend:3.0.4
 docker build -t bmoussaud/petclinic-backend PetClinic-Backend
 Sending build context to Docker daemon  15.87kB
@@ -115,13 +115,13 @@ Done
 
 The petclinic backend is now split into several micro services: vet-service, dog-service, cat-service.
 The dog-service & cat-service depend of a common service: pet-service.
+The main UI petportal is also defined and deployed usng Kubernetes resources: Deployment, Volume, Service,ConfigMap & Ingress.
  
  
- 
-in the `microservices`  Directory you'll find:
-* in services.yaml, the import file that point to the description of the 4 services based on k8s components
-* in application.yaml, the application based only with dependencies
-* infrastructure.yaml defines the environement with the dev k8s namespace as a new member 
+in the `microservices`  directory ,you'll find:
+* in services.yaml, the import file that points to the description of the 4 services based on k8s components,
+* in application.yaml, the application based only with dependencies,
+* infrastructure.yaml defines the environment with the dev k8s namespace as a new member and removes the tomcat servers from the env.
 * deployment.yaml triggers a deployment  PetPortal/(Version) -> Tomcat-Dev-AsCode
 * xebialabs.yaml an import yaml file that includes the 4 previous files.
 

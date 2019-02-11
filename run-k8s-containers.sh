@@ -1,5 +1,5 @@
 eval $(minikube docker-env)
-APP_VERSION=$1
+APP_VERSION="3.0.4"
 IMAGE="bmoussaud/petclinic-backend"
 REGISTRY="localhost:5000"
 
