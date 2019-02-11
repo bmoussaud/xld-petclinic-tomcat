@@ -1,5 +1,5 @@
-# xld-petclinic-tomcat
-This project is a a typical multi-modules maven project with 
+# xld-petclinic
+This project is a a typical multi-modules Java project with 
 * 2 war files (petclinic & petclinic-backend) 
 * a dar (Deployment archive) that includes 
     * the 2 war files,
@@ -8,6 +8,9 @@ This project is a a typical multi-modules maven project with
     * a smoke test  (
     * a logger, a custom extension to configure log configuration per environment 
     
+    
+Following this readme file, you'll be able not only to package the app using maven but also to deploy it using XLDeploy to a traditional IT based on Tomcat and a Kubernetest cluster.
+
     
 ## XLD Server configuration
 * install the smoke test plugin into the plugin directory of your XLDeploy Server : https://github.com/xebialabs-community/xld-smoke-test-plugin/releases/tag/v1.0.5)
@@ -66,6 +69,27 @@ in the `containers`  Directory you'll find:
 
 all the commands are in the `run-k8s-containers.sh`  script that builds the images and runs the 'xl apply' commands.
 
+
+
+### Using the devops as-code to migrate to micro-services & containers
+
+The petclinic backend is now split into several micro services: vet-service, dog-service, cat-service.
+The dog-service & cat-service depend of a common service: pet-service.
+The main UI petportal is also defined and deployed usng Kubernetes resources: Deployment, Volume, Service,ConfigMap & Ingress.
+ 
+ 
+in the `microservices`  directory ,you'll find:
+* in services.yaml, the import file that points to the description of the 4 services based on k8s components,
+* in application.yaml, the application based only with dependencies,
+* infrastructure.yaml defines the environment with the dev k8s namespace as a new member and removes the tomcat servers from the env.
+* deployment.yaml triggers a deployment  PetPortal/(Version) -> Tomcat-Dev-AsCode
+* xebialabs.yaml an import yaml file that includes the 4 previous files.
+
+all the commands are in the `run-microservices.sh` script that builds the images and runs the 'xl apply' commands.
+
+
+### Sample output
+
 ```
 $ ./run-k8s-containers.sh 
 building localhost:5000/bmoussaud/petclinic-backend:3.0.4
@@ -110,19 +134,3 @@ Task [Update deployment of 'Applications/Java/PetPortal/3.0.4' to 'Environments/
 Applying xebialabs.yaml
 Done
 ```
-
-### Using the devops as-code to migrate to micro-services & containers
-
-The petclinic backend is now split into several micro services: vet-service, dog-service, cat-service.
-The dog-service & cat-service depend of a common service: pet-service.
-The main UI petportal is also defined and deployed usng Kubernetes resources: Deployment, Volume, Service,ConfigMap & Ingress.
- 
- 
-in the `microservices`  directory ,you'll find:
-* in services.yaml, the import file that points to the description of the 4 services based on k8s components,
-* in application.yaml, the application based only with dependencies,
-* infrastructure.yaml defines the environment with the dev k8s namespace as a new member and removes the tomcat servers from the env.
-* deployment.yaml triggers a deployment  PetPortal/(Version) -> Tomcat-Dev-AsCode
-* xebialabs.yaml an import yaml file that includes the 4 previous files.
-
-all the commands are in the `run-microservices.sh script that builds the images and runs the 'xl apply' commands.
