@@ -9,8 +9,8 @@ This project is a a typical multi-modules Java project with
     * a logger, a custom extension to configure log configuration per environment 
     
     
-Following this readme file, you'll be able not only to package the app using maven but also to deploy it using XLDeploy to a traditional IT based on Tomcat and a Kubernetest cluster.
 
+The readme file details all the operations to package and to deploy it not only using maven and a classic infrastructure but also using the new devops-as-code and targeting a kubernetes cluster.
     
 ## XLD Server configuration
 * install the smoke test plugin into the plugin directory of your XLDeploy Server : https://github.com/xebialabs-community/xld-smoke-test-plugin/releases/tag/v1.0.5)
