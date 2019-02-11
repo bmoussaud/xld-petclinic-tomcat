@@ -1,0 +1,21 @@
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- name: Applications/Java/PetPortal
+  type: udm.Application
+  children:
+  - name: !value appversion
+    type: udm.DeploymentPackage
+    children:
+    - name: petclinic
+      type: jee.War
+      scanPlaceholders: true
+      file: !file "../PetClinic/target/PetClinic.war"
+      checksum: !format 5c3a7e07c206fef%appversion%1e164252afd019bf5fb7
+    orchestrator:
+      - sequential-by-dependency
+    applicationDependencies:
+        pet-service: '[1.0.0,2.0.0)'
+        dog-service: '[1.0.0,2.0.0)'
+        cat-service: '[1.0.0,2.0.0)'
+

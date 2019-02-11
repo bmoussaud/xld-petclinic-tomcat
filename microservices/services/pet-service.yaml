@@ -1,0 +1,40 @@
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- directory: Applications/Java/Services
+  children:
+  - name: pet-service
+    type: udm.Application
+    children:
+    - name: !value appversion
+      type: udm.DeploymentPackage
+      children:
+      - name: pet-service-deployment
+        type: k8s.DeploymentSpec
+        containers:
+        - name: pet-service
+          type: k8s.ContainerSpec
+          containerName: pet-service
+          image: nginx
+          ports:
+          - name: web
+            type: k8s.ContainerPortSpec
+            containerPort: "80"
+            exposeAsService: "false"
+        podCreateDeleteRetryCount: "20"
+        labels:
+          app: pet-service
+        restartPolicy: Always
+        matchLabels:
+          app: pet-service
+      - name: pet-service-service
+        type: k8s.ServiceSpec
+        serviceName: pet-service
+        selectors:
+          app: pet-service
+        ports:
+        - name: http
+          type: k8s.ServicePortSpec
+          port: "80"
+          targetPort: "8001"
+

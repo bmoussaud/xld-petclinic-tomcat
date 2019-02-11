@@ -1,0 +1,8 @@
+apiVersion: xl/v1
+kind: Import
+metadata:
+  imports:
+    - services/cat-service.yaml
+    - services/dog-service.yaml
+    - services/vet-service.yaml
+    - services/pet-service.yaml

@@ -1,0 +1,65 @@
+---
+apiVersion: xl-deploy/v1
+kind: Infrastructure
+spec:
+- directory: Infrastructure/AsCode
+  children:
+  - name: host-dev-vm
+    type: overthere.SshHost
+    os: UNIX
+    tmpDeleteOnDisconnect: false
+    address: deployit.vm
+    username: ubuntu
+    password: ubuntu
+    children:
+    - name: tomcat-dev
+      type: tomcat.Server
+      home: /home/ubuntu/tomcat/tomcat-dev
+      startCommand: nohup /home/ubuntu/tomcat/tomcat-dev/bin/startup.sh && sleep 5
+      stopCommand: /home/ubuntu/tomcat/tomcat-dev/bin/shutdown.sh
+      children:
+        - name: tomcat.vh
+          type: tomcat.VirtualHost
+    - name: sql-dev
+      type: sql.PostgreSqlClient
+      username: scott
+      password: tiger
+      databaseName: petclinicDev
+      postgreSqlHome: /usr
+    - name: testRunner
+      type: smoketest.Runner
+---
+apiVersion: xl-deploy/v1
+kind: Environments
+spec:
+- directory: Environments/Dev/AsCode
+  children:
+  - name: PetClinic Dictionary
+    type: udm.Dictionary
+    entries:
+      TITLE: !value title
+      log.FilePath: Debug
+      log.RootLevel: /dev/null
+      smoke.test.url: http://deployit.vm:8080/petclinic/index.jsp
+      tests2.ExecutedHttpRequestTest.url: '{{smoke.test.url}}'
+  - name: PetClinic DB Dictionary
+    type: udm.Dictionary
+    entries:
+      tomcat.DataSource.driverClassName: com.mysql.jdbc.Driver
+      tomcat.DataSource.url: jdbc:mysql://localhost/petclinic
+      tomcat.DataSource.username: scott
+      tomcat.DataSource.context: petclinic
+    encryptedEntries:
+      tomcat.DataSource.password: passwor
+- name: Environments/Dev/Tomcat-Dev-AsCode
+  type: udm.Environment
+  members:
+  - ~Infrastructure/AsCode/host-dev-vm/tomcat-dev/tomcat.vh
+  - ~Infrastructure/AsCode/host-dev-vm/sql-dev
+  - ~Infrastructure/AsCode/host-dev-vm/tomcat-dev
+  - ~Infrastructure/AsCode/host-dev-vm/testRunner
+  - ~Infrastructure/AsCode/host-dev-vm
+  - ~Infrastructure/AsCode/mykube/dev
+  dictionaries:
+  - ~Environments/Dev/AsCode/PetClinic Dictionary
+  - ~Environments/Dev/AsCode/PetClinic DB Dictionary

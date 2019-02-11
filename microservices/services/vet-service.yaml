@@ -1,0 +1,40 @@
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- directory: Applications/Java/Services
+  children:
+  - name: vet-service
+    type: udm.Application
+    children:
+    - name: !value appversion
+      type: udm.DeploymentPackage
+      children:
+      - name: vet-service-deployment
+        type: k8s.DeploymentSpec
+        containers:
+        - name: vet-service
+          type: k8s.ContainerSpec
+          containerName: vet-service
+          image: nginx
+          ports:
+          - name: web
+            type: k8s.ContainerPortSpec
+            containerPort: "80"
+            exposeAsService: "false"
+        podCreateDeleteRetryCount: "20"
+        labels:
+          app: vet-service
+        restartPolicy: Always
+        matchLabels:
+          app: vet-service
+      - name: vet-service-service
+        type: k8s.ServiceSpec
+        serviceName: vet-service
+        selectors:
+          app: vet-service
+        ports:
+        - name: http
+          type: k8s.ServicePortSpec
+          port: "80"
+          targetPort: "8001"
+

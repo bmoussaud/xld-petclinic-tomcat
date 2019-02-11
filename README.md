@@ -40,9 +40,9 @@ The commands are:
 
 Since 8.5, XL Deploy provides  [`DevOps as Code`](https://docs.xebialabs.com/xl-platform/concept/devops-as-code-overview.html)
 
-### Manage the web application as code
+### Manage the web application on tomcat as code
 
-in the V2  Directory you'll find:
+in the `tomcat` Directory you'll find:
 
 * application.yaml describes PetPortal/2.0-92 package
 * infrastructure.yaml describes 
@@ -51,23 +51,23 @@ in the V2  Directory you'll find:
 * deployment.yaml triggers a deployment  PetPortal/2.0-92 -> Tomcat-Dev-AsCode
 * xebialabs.yaml an import yaml file that includes the 3 previous files.
  
-execution : `xl apply -f v2/xebialabs.yaml --values title=demo-as-code`
+execution : `xl apply -f tomcat/xebialabs.yaml --values title=demo-as-code`
 
 ### Using the devops as-code to migrate to containers
 
 The petclinic backend war is not packaged in a container and deployed to a Kubernetes Cluster.
  
-in the V3  Directory you'll find:
+in the `containers`  Directory you'll find:
 * in application.yaml, the backend petclinic has been defined using `k8s.DeploymentSpec` and `k8s.ServiceSpec`
 * k8s.yaml defines the targeted K8S cluster
 * infrastructure.yaml defines the environement with the dev k8s namespace as a new member 
 * deployment.yaml triggers a deployment  PetPortal/(Version) -> Tomcat-Dev-AsCode
 * xebialabs.yaml an import yaml file that includes the 4 previous files.
 
-all the commands are in the runv3.sh that builds the images and run the xl apply commands.
+all the commands are in the `run-container.sh script that builds the images and runs the 'xl apply' commands.
 
 ```
-$ ./runv3.sh 3.0.4
+$ ./run-containers.sh 3.0.4
 building localhost:5000/bmoussaud/petclinic-backend:3.0.4
 docker build -t bmoussaud/petclinic-backend PetClinic-Backend
 Sending build context to Docker daemon  15.87kB
@@ -82,16 +82,7 @@ docker tag bmoussaud/petclinic-backend:latest localhost:5000/bmoussaud/petclinic
 docker push localhost:5000/bmoussaud/petclinic-backend:3.0.4
 The push refers to repository [localhost:5000/bmoussaud/petclinic-backend]
 d4dcf092f47b: Layer already exists
-d0f3f4011f28: Layer already exists
-583dc95d65c9: Layer already exists
-f26731984f9b: Layer already exists
-9f052711b40a: Layer already exists
-81242e1e644e: Layer already exists
-39a6e47c4ae6: Layer already exists
-fc6174f0df4a: Layer already exists
-425325c72d90: Layer already exists
-c596d5191368: Layer already exists
-daf45b2cad9a: Layer already exists
+...
 8c466bf4ca6f: Layer already exists
 3.0.4: digest: sha256:212d08d3133aae44f27587cf982062526494031ab7210eac7e39312eaa2282c5 size: 2832
 Applying application.yaml (imported by xebialabs.yaml)
@@ -125,7 +116,24 @@ Updated Environments/Dev/AsCode/PetClinic DB Dictionary
 Updated Environments/Dev/AsCode
 Updated Environments/Dev/Tomcat-Dev-AsCode
 Applying deployment.yaml (imported by xebialabs.yaml)
+
 Task [Update deployment of 'Applications/Java/PetPortal/3.0.4' to 'Environments/Dev/Tomcat-Dev-AsCode'] started (039f79f7-aad2-4bea-bf35-4a9ec01888f6)
 Applying xebialabs.yaml
 Done
 ```
+
+### Using the devops as-code to migrate to micro-services & containers
+
+The petclinic backend is now split into several micro services: vet-service, dog-service, cat-service.
+The dog-service & cat-service depend of a common service: pet-service.
+ 
+ 
+ 
+in the `microservices`  Directory you'll find:
+* in services.yaml, the import file that point to the description of the 4 services based on k8s components
+* in application.yaml, the application based only with dependencies
+* infrastructure.yaml defines the environement with the dev k8s namespace as a new member 
+* deployment.yaml triggers a deployment  PetPortal/(Version) -> Tomcat-Dev-AsCode
+* xebialabs.yaml an import yaml file that includes the 4 previous files.
+
+all the commands are in the `run-microservices.sh script that builds the images and runs the 'xl apply' commands.
