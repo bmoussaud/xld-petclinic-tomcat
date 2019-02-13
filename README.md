@@ -69,6 +69,18 @@ in the `containers`  Directory you'll find:
 
 all the commands are in the `run-k8s-containers.sh`  script that builds the images and runs the 'xl apply' commands.
 
+Note: the script build the image and push it into a local registry installed in my minikube
+Start your minikube using this alias
+```
+alias minikube-start=‘minikube start --vm-driver xhyve --insecure-registry localhost:5000’
+``` 
+Install the registry using this yaml file
+```
+kubectl apply -f minikube-registry/local-registry.yaml
+```
+The original setup is describe here: https://mtpereira.com/local-development-k8s.html
+
+
 
 
 ### Using the devops as-code to migrate to micro-services & containers
