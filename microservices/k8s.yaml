@@ -6,7 +6,7 @@ spec:
   children:
   - name: mykube
     type: k8s.Master
-    apiServerURL: https://192.168.99.100:8443
+    apiServerURL: https://192.168.130.134:8443
     skipTLS: true
     debug: true
     caCert: |-
@@ -31,7 +31,7 @@ spec:
     tlsCert: |-
       -----BEGIN CERTIFICATE-----
       MIIDkjCCAnqgAwIBAgIBAjANBgkqhkiG9w0BAQsFADAVMRMwEQYDVQQDEwptaW5p
-      a3ViZUNBMB4XDTE4MTExNjE1MTAwNVoXDTE5MTExNzE1MTAwNVowLDEXMBUGA1UE
+      a3ViZUNBMB4XDTE5MDMxODA4MjIwNloXDTIwMDMxODA4MjIwNlowLDEXMBUGA1UE
       ChMOc3lzdGVtOm1hc3RlcnMxETAPBgNVBAMTCG1pbmlrdWJlMIIBIjANBgkqhkiG
       9w0BAQEFAAOCAQ8AMIIBCgKCAQEA8PZIJ7SUNeXMLD+w8NtDeVXSY/6BkHinKYay
       azJa7qXFta1C2hPp4bleyy/4SlcAnxfK2FJ/0ndeCWIdB5518/sbnLAkZMBh400C
@@ -43,13 +43,13 @@ spec:
       DAYDVR0TAQH/BAIwADCBkgYDVR0RBIGKMIGHggptaW5pa3ViZUNBgiRrdWJlcm5l
       dGVzLmRlZmF1bHQuc3ZjLmNsdXN0ZXIubG9jYWyCFmt1YmVybmV0ZXMuZGVmYXVs
       dC5zdmOCEmt1YmVybmV0ZXMuZGVmYXVsdIIKa3ViZXJuZXRlc4IJbG9jYWxob3N0
-      hwTAqGNmhwQKYAABhwQKAAABMA0GCSqGSIb3DQEBCwUAA4IBAQALKKRJMFkfndUP
-      +/uMkMd9cSdWOE9voHRmA5loJ/Pn+Kch1YHmogbVD/wtdgN/e2GCIUYfJ7KqrLPq
-      eHMm2op2nQCZcng/JjaB8b8bvSSEk5YiVtYfq9UHWT3a9+oRsVEjnd6MY8p3Pheh
-      Id5tR7JP04rtlws0iizEqcoQTUneNZ9iR9K8hgIfXx1s8fo72EhAABgR3sWVA8Rl
-      0ZjZmmSSrNnJEEHE9cHKow5TCEdWt/+coriuR01HJsScjNddYG5H7kC65WmrdpTV
-      8N3fixEpnupWAszKCDEZMC8GWHtd+gkFPIwFUpDC7av1tZ06wZu8FmLJsVsO/oso
-      zaeyrl9Q
+      hwTAqIKGhwQKYAABhwQKAAABMA0GCSqGSIb3DQEBCwUAA4IBAQChr17UyGW4Z6gC
+      jVUgOaAObVDSdIV6T9qCkSibYk6Qoga3vYdT193WD8pKtgQUeoABdOo9NNVsZcnE
+      eI6Dx7smmCrDVyCe46u7QGfk+7IIHUSJJu7I/Fjx+L5m/qEd9FhkmrIQoaSTE7KI
+      0z8qaRkPo4MwtCVy8qfJyetL5IlPJlBqv9bhD3M8Eniqv3iKksKBp6ndVFgg6Kz1
+      Aqd8HHbR3XOJKJUyrVAt0GbF98TcBO+kI9ckLE/qOvxHtdVGBpdFg9JGldac2UVs
+      mRG3FqdZh/uJt1ug4ZpWiBq0ACavVCZiWsKRIjsIDNdiVFTUxaWu1eC6fuJ9t2fk
+      /wsrOQ45
       -----END CERTIFICATE-----
     tlsPrivateKey: |-
       -----BEGIN RSA PRIVATE KEY-----
