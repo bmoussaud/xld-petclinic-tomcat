@@ -3,8 +3,9 @@ kind: Deployment
 spec:
   package: !format Applications/Java/PetPortal/%appversion%
   environment: Environments/Dev/Tomcat-Dev-AsCode
+  onSuccessPolicy: ARCHIVE
   orchestrators:
     - sequential-by-dependency
-  onSuccessPolicy: ARCHIVE
+
 
 
