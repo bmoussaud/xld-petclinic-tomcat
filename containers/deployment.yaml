@@ -6,5 +6,5 @@ spec:
   #orchestrators:
   #  - parallel-by-deployment-group
   #  - sequential-by-container
-
+  onSuccessPolicy: ARCHIVE
 

@@ -14,5 +14,7 @@ docker tag $IMAGE:latest $REGISTRY/$IMAGE:$APP_VERSION
 echo "docker push $REGISTRY/$IMAGE:$APP_VERSION"
 docker push $REGISTRY/$IMAGE:$APP_VERSION
 
-xl apply --xl-deploy-url http://localhost:4516 -f containers/xebialabs.yaml --values appversion=$APP_VERSION,title="run in k8s"
+xl apply   -f containers/xebialabs.yaml --values appversion=$APP_VERSION,title="run in k8s"
+xl preview -f containers/deployment.yaml --values appversion=$APP_VERSION
+xl apply -f containers/deployment.yaml --values appversion=$APP_VERSION
 

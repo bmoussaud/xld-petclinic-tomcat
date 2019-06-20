@@ -5,5 +5,6 @@ spec:
   environment: Environments/Dev/Tomcat-Dev-AsCode
   orchestrators:
     - sequential-by-dependency
+  onSuccessPolicy: ARCHIVE
 
 

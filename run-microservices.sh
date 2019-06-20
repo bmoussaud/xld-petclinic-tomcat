@@ -6,4 +6,5 @@ REGISTRY="localhost:5000"
 
 xl apply --xl-deploy-url http://localhost:4516 -f microservices/services.yaml --values appversion=$SERVICE_VERSION
 xl apply --xl-deploy-url http://localhost:4516 -f microservices/xebialabs.yaml --values appversion=$APP_VERSION,title="built with microservices"
-
+xl preview --xl-deploy-url http://localhost:4516 -f microservices/deployment.yaml --values appversion=$APP_VERSION
+xl apply --xl-deploy-url http://localhost:4516 -f microservices/deployment.yaml --values appversion=$APP_VERSION
