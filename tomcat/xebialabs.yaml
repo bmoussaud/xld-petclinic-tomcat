@@ -4,3 +4,4 @@ metadata:
   imports:
     - application.yaml
     - infrastructure.yaml
+    - configuration.yaml

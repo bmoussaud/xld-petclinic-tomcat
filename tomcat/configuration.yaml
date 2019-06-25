@@ -1,0 +1,36 @@
+apiVersion: xl-deploy/v1
+kind: Environments
+spec:
+- directory: Environments/Dev/AsCode
+  children:
+  - name: PetClinic Dictionary
+    type: udm.Dictionary
+    entries:
+      TITLE: !value title
+      logFilePath: /dev/null
+      logRootLevel: DEBUG
+      title: !value title
+      logLevel: DEBUG
+      timeout: 30
+      smoke.test.url: http://deployit.vm:13080/petclinic/index.jsp
+      tests2.ExecutedHttpRequestTest.url: '{{smoke.test.url}}'      
+  - name: PetClinic DB Dictionary
+    type: udm.Dictionary
+    entries:
+      tomcat.DataSource.driverClassName: com.mysql.jdbc.Driver
+      tomcat.DataSource.url: jdbc:mysql://localhost/petclinic
+      tomcat.DataSource.username: scott
+      tomcat.DataSource.context: petclinic
+    encryptedEntries:
+      tomcat.DataSource.password: passwor
+- name: Environments/Dev/Tomcat-Dev-AsCode
+  type: udm.Environment
+  members:
+  - ~Infrastructure/AsCode/host-vm/tomcat/tomcat.vh
+  - ~Infrastructure/AsCode/host-vm/sql-db
+  - ~Infrastructure/AsCode/host-vm/tomcat
+  - ~Infrastructure/AsCode/host-vm/testRunner
+  - ~Infrastructure/AsCode/host-vm
+  dictionaries:
+  - ~Environments/Dev/AsCode/PetClinic Dictionary
+  - ~Environments/Dev/AsCode/PetClinic DB Dictionary
