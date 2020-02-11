@@ -54,7 +54,7 @@ in the `tomcat` Directory you'll find:
 * deployment.yaml triggers a deployment  PetPortal/2.0-92 -> Tomcat-Dev-AsCode
 * xebialabs.yaml an import yaml file that includes the 3 previous files.
  
-execution : `xl apply -f tomcat/xebialabs.yaml --values title=demo-as-code`  or `run-tomcat.sh`
+execution : `xl apply -f tomcat/xebialabs.yaml --values title=demo-as-code,appversion=2.0.93`  or `run-tomcat.sh 2.0.93`
 
 ### Using the devops as-code to migrate to containers
 
@@ -79,8 +79,6 @@ Install the registry using this yaml file
 kubectl apply -f minikube-registry/local-registry.yaml
 ```
 The original setup is describe here: https://mtpereira.com/local-development-k8s.html
-
-
 
 
 ### Using the devops as-code to migrate to micro-services & containers

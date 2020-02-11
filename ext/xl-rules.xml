@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<rules xmlns="http://www.xebialabs.com/xl-deploy/xl-rules">
+
+   <rule name="tomcat.CleanupTemporaryDictionary" scope="deployed">
+    <conditions>
+      <type>tomcat.WarModule</type>
+      <operation>MODIFY</operation>
+      <operation>DESTROY</operation>
+    </conditions>
+    <steps>
+      <delete>
+        <order>69</order>
+        <description expression="true">"Cleanup Tomcat working directory for '%s'" % (previousDeployed.name)</description>
+        <target-path expression="true">"%s/work/Catalina/%s/%s" % (previousDeployed.container.server.home, previousDeployed.container.hostName, previousDeployed.name)</target-path>
+      </delete>
+    </steps>
+  </rule>
+
+</rules>

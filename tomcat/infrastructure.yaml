@@ -15,7 +15,7 @@ spec:
       type: tomcat.Server
       home: /home/ubuntu/tomcat/tomcat-as-code
       startCommand: nohup /home/ubuntu/tomcat/tomcat-as-code/bin/startup.sh && sleep 5
-      stopCommand: /home/ubuntu/tomcat/tomcat-as-code/bin/shutdown.sh
+      stopCommand: /home/ubuntu/tomcat/tomcat-as-code/bin/shutdown.sh && sleep 5
       children:
         - name: tomcat.vh
           type: tomcat.VirtualHost

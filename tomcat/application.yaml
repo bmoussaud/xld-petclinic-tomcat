@@ -1,30 +1,32 @@
 apiVersion: xl-deploy/v1
 kind: Applications
 spec:
-- name: Applications/Java/PetPortal
-  type: udm.Application
+- directory: Applications/Java
   children:
-  - name: "2.0-92"
-    type: udm.DeploymentPackage
+  - name: PetPortal
+    type: udm.Application
     children:
-    - name: petclinic
-      type: jee.War
-      scanPlaceholders: true
-      file: !file "../PetClinic/target/PetClinic.war"
-    - name: petclinic-backend
-      type: jee.War
-      file: !file "../PetClinic-Backend/target/PetClinic-Backend.war"
-    - name: sql
-      type: sql.SqlScripts
-      file: !file "../dar/sql"
-    - name: petDataSource
-      type: jee.DataSourceSpec
-      jndiName: jdbc/petds
-    - name: testPage
-      type: smoketest.HttpRequestTest
-      url: '{{smoke.test.url}}'
-      expectedResponseText: '{{TITLE}}'
-    - name: logger
-      type: app.Logger
-      file: !file "../dar/config"
-      scanPlaceholders: true
+    - name: !value appversion
+      type: udm.DeploymentPackage
+      children:
+      - name: petclinic
+        type: jee.War
+        scanPlaceholders: true
+        file: !file "../PetClinic/target/PetClinic.war"
+      - name: petclinic-backend
+        type: jee.War
+        file: !file "../PetClinic-Backend/target/PetClinic-Backend.war"
+      - name: sql
+        type: sql.SqlScripts
+        file: !file "../dar/sql"
+      - name: petDataSource
+        type: jee.DataSourceSpec
+        jndiName: jdbc/petds
+      - name: testPage
+        type: smoketest.HttpRequestTest
+        url: '{{smoke.test.url}}'
+        expectedResponseText: '{{TITLE}}'
+      - name: logger
+        type: app.Logger
+        file: !file "../dar/config"
+        scanPlaceholders: true
