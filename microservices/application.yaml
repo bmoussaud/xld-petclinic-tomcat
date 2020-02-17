@@ -6,10 +6,12 @@ spec:
   children:
     - name: !value appversion
       type: udm.DeploymentPackage
+      orchestrator:
+      - sequential-by-dependency
       applicationDependencies:
-          pet-service: '[1.0.0,2.0.0)'
-          dog-service: '[1.0.0,2.0.0)'
-          cat-service: '[1.0.0,2.0.0)'
+         pet-service: '[1.0.0,2.0.0)'
+         dog-service: '[1.0.0,2.0.0)'
+         cat-service: '[1.0.0,2.0.0)'
       children:
       - name: pet.configuration
         type: k8s.ConfigMapSpec
@@ -21,53 +23,16 @@ spec:
         - name: petclinic.properties
           type: k8s.ConfigMapFileSpec
           file: !file "pet.configuration/petclinic.properties/petclinic.properties"
-      - name: petclinic-depl
-        type: k8s.DeploymentSpec
-        containers:
-        - name: petclinic
-          type: k8s.ContainerSpec
-          image: bmoussaud/petclinic:4.1-20182301165416
-          ports:
-          - name: web
-            type: k8s.ContainerPortSpec
-            containerPort: "8080"
-          probes:
-          - name: livenessProbe
-            type: k8s.LivenessHTTPGetProbeSpec
-            successThreshold: "1"
-            initialDelaySeconds: "10"
-            periodSeconds: "30"
-            failureThreshold: "3"
-            path: /petclinic/live.jsp
-            port: "8080"
-          - name: readynessProbe
-            type: k8s.ReadinessHTTPGetProbeSpec
-            initialDelaySeconds: "10"
-            successThreshold: "1"
-            periodSeconds: "30"
-            failureThreshold: "3"
-            path: /petclinic/ready.jsp
-            port: "8080"
-          volumeBindings:
-          - name: pet.volume
-            type: k8s.MountedVolumeSpec
-            volumeName: petvolume
-            mountPath: /application/properties
-            readOnly: False
-        volumes:
-        - name: pet.volume
-          type: k8s.VolumeSpec
-          volumeName: petvolume
-          volumeType: configMap
-          properties:
-            name: petconfig
-        labels:
-          app: pet
-        matchLabels:
-          app: pet
+      - name: petclinic-deployment
+        type: k8s.ResourcesFile
+        file: !file "k8s/deployment.json"
+      - name: petclinic-ingress
+        type: k8s.ResourcesFile
+        file: !file "k8s/ingress.json"
       - name: petclinic.service
         type: k8s.ServiceSpec
         serviceName: petclinicservice
+        serviceType: LoadBalancer
         selectors:
           app: pet
         ports:
@@ -75,21 +40,6 @@ spec:
           type: k8s.ServicePortSpec
           port: "8080"
           targetPort: "8080"
-      - name: petclinic-ingress
-        type: k8s.IngressSpec
-        annotations:
-          #nginx.ingress.kubernetes.io/rewrite-target: /petclinic
-          ingress.kubernetes.io/rewrite-target: /petclinic
-          nginx.ingress.kubernetes.io/ssl-redirect: "false"
-        rules:
-        - name: http
-          type: k8s.IngressRuleSpec
-          paths:
-          - name: ascode
-            type: k8s.IngressPathSpec
-            path: /petclinic
-            serviceName: petclinicservice
-            servicePort: "8080"
       - name: smoke test petclinic ui
         type: smoketest.HttpRequestTest
         url: '{{smoke.test.url}}'

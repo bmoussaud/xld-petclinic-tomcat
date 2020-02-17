@@ -10,23 +10,28 @@ spec:
     address: deployit.vm
     username: ubuntu
     password: ubuntu
+    deploymentGroup: 1
     children:
     - name: tomcat
       type: tomcat.Server
       home: /home/ubuntu/tomcat/tomcat-as-code
       startCommand: nohup /home/ubuntu/tomcat/tomcat-as-code/bin/startup.sh && sleep 5
       stopCommand: /home/ubuntu/tomcat/tomcat-as-code/bin/shutdown.sh
+      deploymentGroup: 1
       children:
         - name: tomcat.vh
           type: tomcat.VirtualHost
+          deploymentGroup: 1
     - name: sql-db
       type: sql.PostgreSqlClient
       username: scott
       password: tiger
       databaseName: petclinicDev
+      deploymentGroup: 1
       postgreSqlHome: /usr
     - name: testRunner
       type: smoketest.Runner
+      deploymentGroup: 1
 ---
 apiVersion: xl-deploy/v1
 kind: Environments

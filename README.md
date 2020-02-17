@@ -41,7 +41,7 @@ The commands are:
 
 ## As-Code
 
-Since 8.5, XL Deploy provides  [`DevOps as Code`](https://docs.xebialabs.com/xl-platform/concept/devops-as-code-overview.html)
+Since 8.5, XL Deploy  has provided  [`DevOps as Code`](https://docs.xebialabs.com/xl-platform/concept/devops-as-code-overview.html)
 
 ### Manage the web application on tomcat as code
 
@@ -101,7 +101,7 @@ all the commands are in the `run-microservices.sh` script that builds the images
 ### Sample output
 
 ```
-$ ./run-k8s-containers.sh 
+$ ./run-k8s-containers.sh 3.0.4
 building localhost:5000/bmoussaud/petclinic-backend:3.0.4
 docker build -t bmoussaud/petclinic-backend PetClinic-Backend
 Sending build context to Docker daemon  15.87kB

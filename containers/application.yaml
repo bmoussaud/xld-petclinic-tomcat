@@ -6,6 +6,8 @@ spec:
   children:
   - name: !value appversion
     type: udm.DeploymentPackage
+    orchestrator:
+    - sequential-by-deployment-group
     children:
     - name: petclinic
       type: jee.War
@@ -41,6 +43,7 @@ spec:
       podCreateDeleteRetryCount: "20"
       labels:
         app: petclinic-backend
+        version: !format  "v%appversion%"
       restartPolicy: Always
       matchLabels:
         app: petclinic-backend

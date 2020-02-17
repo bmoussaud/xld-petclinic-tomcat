@@ -9,7 +9,7 @@
     </conditions>
     <steps>
       <delete>
-        <order>69</order>
+        <order>59</order>
         <description expression="true">"Cleanup Tomcat working directory for '%s'" % (previousDeployed.name)</description>
         <target-path expression="true">"%s/work/Catalina/%s/%s" % (previousDeployed.container.server.home, previousDeployed.container.hostName, previousDeployed.name)</target-path>
       </delete>

@@ -1,0 +1,21 @@
+{
+
+  "metadata": {
+
+    "name": "petconfig"
+
+  },
+
+  "data": {
+
+    "petclinic.properties": "title={{title}}\nprovider={{provider}}.png",
+
+    "log4j.properties": "log4j.rootCategory={{log.RootLevel}}\n\nlog4j.logger.com.dappit.Dapper.parser=ERROR\nlog4j.logger.org.w3c.tidy=FATAL\n\n#------------------------------------------------------------------------------\n#\n#  The following properties configure the console (stdout) appender.\n#  See http://logging.apache.org/log4j/docs/api/index.html for details.\n#\n#------------------------------------------------------------------------------\nlog4j.appender.S = org.apache.log4j.ConsoleAppender\nlog4j.appender.S.layout = org.apache.log4j.PatternLayout\nlog4j.appender.S.layout.ConversionPattern = %d{yyyy-MM-dd HH:mm:ss} %c{1} [%p] %m%n\n\n#------------------------------------------------------------------------------\n#\n#  The following properties configure the Daily Rolling File appender.\n#  See http://logging.apache.org/log4j/docs/api/index.html for details.\n#\n#------------------------------------------------------------------------------\nlog4j.appender.R = org.apache.log4j.DailyRollingFileAppender\nlog4j.appender.R.File = /dev/null\nlog4j.appender.R.Append = true\nlog4j.appender.R.DatePattern = '.'yyy-MM-dd\nlog4j.appender.R.layout = org.apache.log4j.PatternLayout\nlog4j.appender.R.layout.ConversionPattern = %d{yyyy-MM-dd HH:mm:ss} %c{1} [%p] %m%n\n\n#------------------------------------------------------------------------------\n#\n#  The following properties configure the Rolling File appender in HTML.\n#  See http://logging.apache.org/log4j/docs/api/index.html for details.\n#\n#------------------------------------------------------------------------------\nlog4j.appender.H = org.apache.log4j.RollingFileAppender\nlog4j.appender.H.File = logs/bensApps.html\nlog4j.appender.H.MaxFileSize = 100KB\nlog4j.appender.H.Append = false\nlog4j.appender.H.layout = org.apache.log4j.HTMLLayout\n"
+
+  },
+
+  "kind": "ConfigMap",
+
+  "apiVersion": "v1"
+
+}

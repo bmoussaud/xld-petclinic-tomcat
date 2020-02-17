@@ -40,7 +40,7 @@ spec:
         - name: http
           type: k8s.ServicePortSpec
           port: "80"
-          targetPort: "8001"
+          targetPort: "8002"
       - name: dog-sql
         type: sql.SqlScripts
         file: !file "dog-sql"

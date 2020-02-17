@@ -1,0 +1,88 @@
+{
+
+  "metadata": {
+    "name": "petclinic-depl"
+  },
+
+  "kind": "Deployment",
+  "spec": {
+    "template": {
+      "metadata": {
+        "labels": {
+          "app": "pet"
+        },
+        "name": "petclinic-depl"
+      },
+
+      "spec": {
+        "hostNetwork": false,
+        "imagePullSecrets": [],
+        "volumes": [
+          {
+            "configMap": {
+              "name": "petconfig"
+            },
+            "name": "petvolume"
+          }
+        ],
+        "restartPolicy": "Always",
+        "containers": [
+          {
+            "image": "bmoussaud/petclinic:4.1-20182301165416",
+            "ports": [
+              {
+                "protocol": "TCP",
+                "containerPort": 8080
+
+              }
+            ],
+            "command": [],
+            "volumeMounts": [
+              {
+                "mountPath": "/application/properties",
+                "readOnly": false,
+                "name": "petvolume"
+              }
+            ],
+            "args": [],
+            "name": "petclinic"
+
+
+          }
+
+        ]
+
+      }
+
+    },
+
+    "paused": false,
+
+    "replicas": 1,
+
+
+    "selector": {
+
+      "matchLabels": {
+
+        "app": "pet"
+
+      }
+
+    },
+
+    "minReadySeconds": 0,
+
+    "strategy": {
+
+      "type": "RollingUpdate"
+
+    },
+
+    "progressDeadlineSeconds": 600
+
+  },
+
+  "apiVersion": "apps/v1"
+
+}

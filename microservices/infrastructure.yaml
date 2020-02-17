@@ -40,7 +40,7 @@ spec:
       title: !value title
       log.FilePath: /dev/null
       log.RootLevel: Debug
-      smoke.test.url: http://192.168.130.134/petclinic/index.jsp
+      smoke.test.url: http://petclinic.dev.xebialabs.demo/petclinic/index.jsp
       tests2.ExecutedHttpRequestTest.url: '{{smoke.test.url}}'
       provider: kubernetes
   - name: PetClinic DB Dictionary

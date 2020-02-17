@@ -1,5 +1,9 @@
 eval $(minikube docker-env)
-APP_VERSION="3.0.4"
+export DOCKER_TLS_VERIFY="1"
+export DOCKER_HOST="tcp://192.168.130.134:2376"
+export DOCKER_CERT_PATH="/Users/bmoussaud/.minikube/certs"
+
+APP_VERSION=$1
 IMAGE="bmoussaud/petclinic-backend"
 REGISTRY="localhost:5000"
 
@@ -16,5 +20,5 @@ docker push $REGISTRY/$IMAGE:$APP_VERSION
 
 xl apply   -f containers/xebialabs.yaml --values appversion=$APP_VERSION,title="run in k8s"
 xl preview -f containers/deployment.yaml --values appversion=$APP_VERSION
-xl apply -f containers/deployment.yaml --values appversion=$APP_VERSION
+#xl apply -f containers/deployment.yaml --values appversion=$APP_VERSION
 

@@ -82,7 +82,10 @@ spec:
     children:
       - name: dev
         type: k8s.Namespace
+        deploymentGroup: 3
       - name: prd
         type: k8s.Namespace
+        deploymentGroup: 3
       - name: qa
         type: k8s.Namespace
+        deploymentGroup: 3

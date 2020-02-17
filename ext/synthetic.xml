@@ -11,4 +11,10 @@
     <property name="destroyVerb" default="Destroy" hidden="true"/>
   </type>
 
+  <type-modification type="udm.BaseDeployedContainer">
+    <property name="deploymentGroup" kind="integer" required="false"/>
+    <property name="deploymentSubGroup" kind="integer" required="false"/>
+    <property name="deploymentSubSubGroup" kind="integer" required="false"/>
+  </type-modification>
+
 </synthetic>
