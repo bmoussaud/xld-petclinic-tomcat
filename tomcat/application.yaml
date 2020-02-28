@@ -1,3 +1,4 @@
+---
 apiVersion: xl-deploy/v1
 kind: Applications
 spec:
